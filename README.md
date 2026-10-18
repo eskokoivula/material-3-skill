@@ -39,7 +39,7 @@ The config format is in `references/brand-first.md`; the box format for picture 
 ## What it does
 
 ```mermaid
-%%{init: {'themeVariables': {'fontSize': '12px'}, 'flowchart': {'nodeSpacing': 12, 'rankSpacing': 16, 'padding': 4}}}%%
+%%{init: {'layout': 'dagre', 'look': 'classic', 'themeVariables': {'fontSize': '12px'}, 'flowchart': {'nodeSpacing': 12, 'rankSpacing': 16, 'padding': 4, 'wrappingWidth': 260}}}%%
 flowchart TD
     Q{Audit or build?} -- build --> I[Interview, one question at a time]
     I -- answers --> P[Screen plan: each choice tied to an M3 rule]
