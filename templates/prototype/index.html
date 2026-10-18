@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>M3 prototype</title>
+<!-- The template's own example screens: a gallery of the components in m3.css. A project's prototype keeps the
+     viewer (stage, device, bar, prototype.js) and replaces the screens. Labels here are placeholders; a project's
+     real UI text comes from its approved copy. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="m3.css">
+<link rel="stylesheet" href="prototype.css">
+<style>
+  .stack { display: grid; gap: 16px; padding-block: 8px 24px; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .fab-slot { position: sticky; bottom: 16px; display: flex; justify-content: flex-end; padding: 0 16px; pointer-events: none; }
+  .fab-slot > * { pointer-events: auto; }
+  .section-title { margin: 16px 0 0; color: var(--md-sys-color-on-surface-variant); }
+  .media { aspect-ratio: 16 / 9; border-radius: var(--md-sys-shape-corner-large); background: var(--md-sys-color-surface-container-highest); display: grid; place-items: center; color: var(--md-sys-color-on-surface-variant); }
+  .fields { display: grid; gap: 16px; max-width: 480px; }
+</style>
+</head>
+<body>
+<div class="proto-stage" data-frame="phone">
+  <div class="proto-device">
+    <div id="app" class="md-window md-surface">
+      <nav class="md-nav-rail md-from-medium" aria-label="Main">
+        <button class="md-fab md-fab--secondary md-nav-rail__fab" data-open="dialog-create" aria-label="Create"><span class="material-symbols-outlined" aria-hidden="true">edit</span></button>
+        <a class="md-nav-rail__item" href="#home" data-nav="home" data-transition="top-level"><span class="md-nav-rail__indicator"><span class="material-symbols-outlined" aria-hidden="true">home</span></span>Home</a>
+        <a class="md-nav-rail__item" href="#components" data-nav="components" data-transition="top-level"><span class="md-nav-rail__indicator"><span class="material-symbols-outlined" aria-hidden="true">widgets</span></span>Components</a>
+        <a class="md-nav-rail__item" href="#feedback" data-nav="feedback" data-transition="top-level"><span class="md-nav-rail__indicator"><span class="material-symbols-outlined" aria-hidden="true">chat_bubble</span></span>Feedback</a>
+      </nav>
+
+      <div class="proto-main">
+        <div class="screens">
+
+          <section class="screen" data-screen="home" data-title="Home" data-section="home" aria-label="Home">
+            <header class="md-top-app-bar">
+              <h1 class="md-top-app-bar__title">Home</h1>
+              <button class="md-icon-button" aria-label="Search"><span class="material-symbols-outlined" aria-hidden="true">search</span></button>
+            </header>
+            <div class="md-margin stack">
+              <div class="md-list-detail">
+                <div class="stack">
+                  <a class="md-card md-card--elevated md-card--link" href="#detail" data-transition="forward">
+                    <div class="md-card__media"></div>
+                    <h2 class="md-title-medium" style="margin:0">Card title</h2>
+                    <p class="md-body-medium md-on-surface-variant" style="margin:4px 0 0">Supporting text</p>
+                  </a>
+                  <a class="md-card md-card--filled md-card--link" href="#detail" data-transition="forward">
+                    <h2 class="md-title-medium" style="margin:0">Filled card</h2>
+                    <p class="md-body-medium md-on-surface-variant" style="margin:4px 0 0">Supporting text</p>
+                  </a>
+                  <a class="md-card md-card--outlined md-card--link" href="#detail" data-transition="forward">
+                    <h2 class="md-title-medium" style="margin:0">Outlined card</h2>
+                    <p class="md-body-medium md-on-surface-variant" style="margin:4px 0 0">Supporting text</p>
+                  </a>
+                </div>
+                <div class="md-from-expanded">
+                  <div class="md-card md-card--outlined">
+                    <h2 class="md-headline-small" style="margin:0 0 8px">Detail pane</h2>
+                    <p class="md-body-medium md-on-surface-variant" style="margin:0">On expanded windows the list and its detail sit side by side.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fab-slot md-only-compact">
+              <button class="md-fab" data-open="dialog-create" aria-label="Create"><span class="material-symbols-outlined" aria-hidden="true">edit</span></button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="detail" data-title="Detail" data-section="home" aria-label="Detail" hidden>
+            <header class="md-top-app-bar">
+              <button class="md-icon-button" data-go="home" data-transition="backward" aria-label="Back"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
+              <h1 class="md-top-app-bar__title">Detail</h1>
+              <button class="md-icon-button" aria-label="Favourite" aria-pressed="false" onclick="this.setAttribute('aria-pressed', String(this.getAttribute('aria-pressed') !== 'true'))"><span class="material-symbols-outlined" aria-hidden="true">favorite</span></button>
+            </header>
+            <div class="md-margin stack">
+              <div class="media"><span class="material-symbols-outlined" aria-hidden="true">image</span></div>
+              <h2 class="md-headline-medium md-emphasized" style="margin:0">Headline</h2>
+              <p class="md-body-large md-on-surface-variant" style="margin:0">Body text in the body-large style, on surface, in the on-surface-variant role.</p>
+              <div class="md-chip-set" role="group" aria-label="Filters">
+                <button class="md-chip" aria-pressed="true" onclick="this.setAttribute('aria-pressed', String(this.getAttribute('aria-pressed') !== 'true'))"><span class="material-symbols-outlined" aria-hidden="true">check</span>Selected</button>
+                <button class="md-chip" aria-pressed="false" onclick="this.setAttribute('aria-pressed', String(this.getAttribute('aria-pressed') !== 'true'))">Filter</button>
+                <button class="md-chip" aria-pressed="false" onclick="this.setAttribute('aria-pressed', String(this.getAttribute('aria-pressed') !== 'true'))">Filter</button>
+              </div>
+              <div class="row">
+                <button class="md-button md-button--filled" data-open="snack-saved">Primary action</button>
+                <button class="md-button md-button--outlined" data-go="home" data-transition="backward">Back</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="components" data-title="Components" data-section="components" aria-label="Components" hidden>
+            <header class="md-top-app-bar">
+              <h1 class="md-top-app-bar__title">Components</h1>
+            </header>
+            <div class="md-margin stack">
+              <label class="md-search"><span class="material-symbols-outlined" aria-hidden="true">search</span><input type="search" placeholder="Search" aria-label="Search"></label>
+              <h2 class="md-title-small section-title">Buttons</h2>
+              <div class="row">
+                <button class="md-button md-button--filled">Filled</button>
+                <button class="md-button md-button--tonal">Tonal</button>
+                <button class="md-button md-button--elevated">Elevated</button>
+                <button class="md-button md-button--outlined">Outlined</button>
+                <button class="md-button md-button--text">Text</button>
+                <button class="md-button md-button--filled" disabled>Disabled</button>
+              </div>
+              <div class="row">
+                <button class="md-button md-button--filled md-button--m md-button--morph">Medium</button>
+                <button class="md-button md-button--tonal md-button--m md-button--square">Square</button>
+              </div>
+              <div class="row">
+                <button class="md-button md-button--filled md-button--toggle" aria-pressed="true" onclick="this.setAttribute('aria-pressed', String(this.getAttribute('aria-pressed') !== 'true'))">Toggle on</button>
+                <button class="md-button md-button--outlined md-button--toggle" aria-pressed="false" onclick="this.setAttribute('aria-pressed', String(this.getAttribute('aria-pressed') !== 'true'))">Toggle off</button>
+              </div>
+              <div class="row">
+                <button class="md-icon-button" aria-label="Settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span></button>
+                <button class="md-icon-button md-icon-button--filled" aria-label="Add"><span class="material-symbols-outlined" aria-hidden="true">add</span></button>
+                <button class="md-icon-button md-icon-button--tonal" aria-label="Edit"><span class="material-symbols-outlined" aria-hidden="true">edit</span></button>
+                <button class="md-icon-button md-icon-button--outlined" aria-label="Share"><span class="material-symbols-outlined" aria-hidden="true">share</span></button>
+              </div>
+              <div class="md-segmented" role="group" aria-label="View">
+                <button class="md-segmented__button" aria-pressed="true">Day</button>
+                <button class="md-segmented__button" aria-pressed="false">Week</button>
+                <button class="md-segmented__button" aria-pressed="false">Month</button>
+              </div>
+              <div class="md-tabs" role="tablist" aria-label="Tabs">
+                <button class="md-tab" role="tab" aria-selected="true">First</button>
+                <button class="md-tab" role="tab" aria-selected="false">Second</button>
+                <button class="md-tab" role="tab" aria-selected="false">Third</button>
+              </div>
+              <h2 class="md-title-small section-title">Text fields</h2>
+              <div class="fields">
+                <label class="md-field md-field--outlined"><input class="md-field__input" placeholder=" "><span class="md-field__label">Outlined</span></label>
+                <label class="md-field md-field--filled"><input class="md-field__input" placeholder=" "><span class="md-field__label">Filled</span></label>
+                <div class="md-field md-field--outlined md-field--error">
+                  <input class="md-field__input" id="f-error" placeholder=" " aria-invalid="true" aria-describedby="f-error-support" value="Wrong">
+                  <label class="md-field__label" for="f-error">With an error</label>
+                  <span class="md-field__support" id="f-error-support">Supporting text names the error</span>
+                </div>
+              </div>
+              <h2 class="md-title-small section-title">Selection</h2>
+              <div class="row">
+                <label class="md-control"><input type="checkbox" class="md-switch" checked> Switch</label>
+                <label class="md-control"><input type="checkbox" class="md-checkbox" checked> Checkbox</label>
+                <label class="md-control"><input type="radio" class="md-radio" name="r" checked> Radio</label>
+                <label class="md-control"><input type="radio" class="md-radio" name="r"> Radio</label>
+              </div>
+              <h2 class="md-title-small section-title">List</h2>
+              <ul class="md-list">
+                <li><a class="md-list-item md-list-item--two-line md-list-item--link" href="#detail" data-transition="forward"><span class="md-avatar" aria-hidden="true">A</span><span class="md-list-item__text"><span class="md-list-item__headline">List item</span><span class="md-list-item__supporting">Supporting text</span></span><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></a></li>
+                <li><a class="md-list-item md-list-item--two-line md-list-item--link" href="#detail" data-transition="forward"><span class="md-avatar" aria-hidden="true">B</span><span class="md-list-item__text"><span class="md-list-item__headline">List item</span><span class="md-list-item__supporting">Supporting text</span></span><span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></a></li>
+              </ul>
+              <div class="md-progress" role="progressbar" aria-label="Progress" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><div class="md-progress__bar"></div></div>
+              <div class="md-progress md-progress--indeterminate" role="progressbar" aria-label="Loading"><div class="md-progress__bar"></div></div>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="feedback" data-title="Feedback" data-section="feedback" aria-label="Feedback" hidden>
+            <header class="md-top-app-bar">
+              <h1 class="md-top-app-bar__title">Feedback</h1>
+            </header>
+            <div class="md-margin stack">
+              <div class="row">
+                <button class="md-button md-button--tonal" data-open="dialog-create">Open dialog</button>
+                <button class="md-button md-button--outlined" data-open="snack-saved">Show snackbar</button>
+              </div>
+              <div class="md-menu" role="menu" aria-label="Menu">
+                <button class="md-menu__item" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">content_copy</span>Copy</button>
+                <button class="md-menu__item" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">share</span>Share</button>
+                <hr class="md-divider">
+                <button class="md-menu__item" role="menuitem"><span class="material-symbols-outlined" aria-hidden="true">delete</span>Delete</button>
+              </div>
+              <div class="row"><span class="md-tooltip">Plain tooltip</span><span class="md-badge" aria-label="3 new">3</span></div>
+              <div class="md-sheet"><div class="md-sheet__handle"></div><p class="md-body-medium" style="margin:0">Bottom sheet content</p></div>
+            </div>
+          </section>
+        </div>
+
+        <nav class="md-nav-bar md-only-compact" aria-label="Main">
+          <a class="md-nav-bar__item" href="#home" data-nav="home" data-transition="top-level"><span class="md-nav-bar__indicator"><span class="material-symbols-outlined" aria-hidden="true">home</span></span>Home</a>
+          <a class="md-nav-bar__item" href="#components" data-nav="components" data-transition="top-level"><span class="md-nav-bar__indicator"><span class="material-symbols-outlined" aria-hidden="true">widgets</span></span>Components</a>
+          <a class="md-nav-bar__item" href="#feedback" data-nav="feedback" data-transition="top-level"><span class="md-nav-bar__indicator"><span class="material-symbols-outlined" aria-hidden="true">chat_bubble</span></span>Feedback</a>
+        </nav>
+      </div>
+
+      <div class="md-scrim" id="dialog-create" hidden>
+        <div class="md-dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-create-title">
+          <h2 class="md-dialog__headline" id="dialog-create-title">Dialog headline</h2>
+          <p class="md-dialog__content">Dialog supporting text, in body-medium.</p>
+          <div class="md-dialog__actions">
+            <button class="md-button md-button--text" data-close>Cancel</button>
+            <button class="md-button md-button--text" data-close autofocus>Confirm</button>
+          </div>
+        </div>
+      </div>
+      <div class="proto-snackbar-slot">
+        <div class="md-snackbar" id="snack-saved" role="status" hidden>
+          <span class="md-snackbar__text">Snackbar message</span>
+          <button class="md-button md-button--text" onclick="this.closest('.md-snackbar').hidden = true">Undo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="proto-bar" role="toolbar" aria-label="Prototype controls" data-audit-ignore>
+  <label>Frame <select name="frame"><option value="phone">Phone</option><option value="tablet">Tablet</option><option value="desktop">Desktop</option><option value="full">Full</option></select></label>
+  <label>Theme <select name="theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  <label>Motion <select name="motion"><option value="normal">Normal</option><option value="reduced">Reduced</option></select></label>
+  <label>Screen <select name="screen"></select></label>
+</div>
+<script src="prototype.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "Sample brand (test fixture)",
+  "source": "#FF8A3D",
+  "variant": "fidelity",
+  "spec": "2021",
+  "modes": ["dark"],
+  "palettes": { "secondary": "#3D5AFE", "tertiary": "#00BFA5", "neutral": "#101418", "neutralVariant": "#1F2933", "error": "#FF5252" },
+  "locked": {
+    "dark": {
+      "surface": "#101418", "background": "#101418",
+      "surfaceContainer": "#182029", "surfaceContainerHighest": "#243140",
+      "onSurface": "#F2F5F8", "onBackground": "#F2F5F8", "onSurfaceVariant": "#7A8A99",
+      "primary": "#FF8A3D", "onPrimary": "#1A0A00",
+      "secondary": "#3D5AFE", "error": "#FF5252",
+      "outline": "#3D5AFE4D"
+    }
+  },
+  "type": { "brand": "Inter", "plain": "Inter" }
+}

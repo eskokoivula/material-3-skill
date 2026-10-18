@@ -1,0 +1,53 @@
+/* The prototype's viewer: the stage, the device frame and the small control bar. Not part of the design. */
+html, body { margin: 0; height: 100%; }
+body { background: #e6e6e9; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+.proto-stage { min-height: 100dvh; display: grid; place-items: center; padding: 24px 24px 72px; }
+.proto-device {
+  position: relative;
+  width: var(--frame-w, 390px);
+  height: var(--frame-h, 844px);
+  max-height: calc(100dvh - 96px);
+  overflow: hidden;
+  border-radius: var(--frame-r, 28px);
+  box-shadow: 0 0 0 10px #1d1d1f, 0 24px 60px rgb(0 0 0 / 0.35);
+  display: flex;
+}
+.proto-stage[data-frame='tablet'] .proto-device { --frame-w: 834px; --frame-h: 1112px; --frame-r: 20px; }
+.proto-stage[data-frame='desktop'] { padding: 0 0 56px; }
+.proto-stage[data-frame='desktop'] .proto-device { --frame-w: 100vw; --frame-h: calc(100dvh - 56px); --frame-r: 0; max-height: none; box-shadow: none; }
+.proto-stage[data-frame='full'] { padding: 0; }
+.proto-stage[data-frame='full'] .proto-device { --frame-w: 100vw; --frame-h: 100dvh; --frame-r: 0; max-height: none; box-shadow: none; }
+
+/* The app inside the frame: navigation that persists, and a stack of screens. */
+#app { flex: 1; min-width: 0; display: flex; position: relative; }
+.proto-main { flex: 1; min-width: 0; display: flex; flex-direction: column; position: relative; }
+.screens { flex: 1; position: relative; overflow: hidden; }
+.screen { position: absolute; inset: 0; overflow: auto; overscroll-behavior: contain; background: var(--md-sys-color-surface); }
+.screen[hidden] { display: none; }
+.screen:focus { outline: none; } /* a screen is a container, not a control: no ring when the browser focuses it */
+.proto-layer { position: absolute; inset: 0; pointer-events: none; z-index: 20; }
+.proto-layer > * { pointer-events: auto; }
+.proto-snackbar-slot { position: absolute; inset: auto 16px 16px; display: flex; justify-content: center; pointer-events: none; z-index: 21; }
+.proto-snackbar-slot > * { pointer-events: auto; }
+
+/* The control bar. */
+.proto-bar {
+  position: fixed;
+  inset: auto 0 0;
+  min-height: 56px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 12px;
+  padding: 8px 12px;
+  background: #1d1d1f;
+  color: #f5f5f7;
+  font: 13px/1.2 system-ui, -apple-system, 'Segoe UI', sans-serif;
+  z-index: 100;
+}
+.proto-bar label { display: inline-flex; align-items: center; gap: 6px; }
+.proto-bar select { min-height: 36px; border-radius: 8px; border: 1px solid #555; background: #2c2c2e; color: #f5f5f7; padding: 0 8px; font: inherit; }
+.proto-bar[hidden] { display: none; }
+/* On a real phone the prototype fills the screen; the controls sit below it, reached by scrolling. */
+.proto-stage[data-frame='full'] + .proto-bar { position: static; }

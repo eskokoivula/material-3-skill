@@ -1,0 +1,181 @@
+{
+ "about": "Planted faults in faults.html: the rule that must find each, its list, and a piece of the finding's 'where' (match) or 'what' (what_has) that names it; rect_max_y bounds the marker's top and has_rect asks for a marker (a fixed bar's marker stays at the top). must_not: findings the audit must not make. Sizes 390x844 and 1440x900; found at either size counts.",
+ "faults": [
+  {
+   "rule": "contrast",
+   "list": "broken",
+   "match": "p.low"
+  },
+  {
+   "rule": "target-m3",
+   "list": "broken",
+   "match": "button.small"
+  },
+  {
+   "rule": "target-wcag",
+   "list": "broken",
+   "match": "a.tiny"
+  },
+  {
+   "rule": "focus-invisible",
+   "list": "broken",
+   "match": "button.nofocus"
+  },
+  {
+   "rule": "radius-scale-inconsistent",
+   "list": "broken"
+  },
+  {
+   "rule": "type-scale-inconsistent",
+   "list": "broken"
+  },
+  {
+   "rule": "sideways-scroll",
+   "list": "broken"
+  },
+  {
+   "rule": "motion-reduce",
+   "list": "broken",
+   "match": "div.moving"
+  },
+  {
+   "rule": "hover-missing",
+   "list": "broken",
+   "match": "button.nohover"
+  },
+  {
+   "rule": "button-shape",
+   "list": "differs",
+   "match": "button.square"
+  },
+  {
+   "rule": "radius-off-scale",
+   "list": "differs",
+   "match": "div.cards"
+  },
+  {
+   "rule": "type-off-scale",
+   "list": "differs"
+  },
+  {
+   "rule": "typeface",
+   "list": "differs"
+  },
+  {
+   "rule": "spacing-off-grid",
+   "list": "differs",
+   "match": "div.offgrid",
+   "has_rect": true
+  },
+  {
+   "rule": "focus-invisible",
+   "list": "broken",
+   "match": "bar-nofocus",
+   "rect_max_y": 60,
+   "note": "a control on a fixed bar: its marker stays on the bar"
+  },
+  {
+   "rule": "hover-missing",
+   "list": "broken",
+   "match": "spin-host",
+   "note": "a spinner inside must not hide the missing hover"
+  },
+  {
+   "rule": "type-off-scale",
+   "list": "differs",
+   "what_has": "26px",
+   "note": "measured only on the wide window: kept apart from the phone's finding"
+  },
+  {
+   "rule": "focus-invisible",
+   "list": "broken",
+   "match": "div.panel",
+   "note": "a focusable tab panel"
+  },
+  {
+   "rule": "target-m3",
+   "list": "broken",
+   "match": "in-panel",
+   "note": "a control inside a focusable panel is still a target"
+  },
+  {
+   "rule": "contrast",
+   "list": "broken",
+   "match": "p.layered-text",
+   "note": "the background is drawn by a layer with pointer-events: none"
+  },
+  {
+   "rule": "contrast",
+   "list": "broken",
+   "match": "p.over-video",
+   "note": "white text over a video that turns light"
+  },
+  {
+   "rule": "video-no-pause",
+   "list": "broken",
+   "match": "video.bg"
+  },
+  {
+   "rule": "focus-invisible",
+   "list": "broken",
+   "match": "label.drop",
+   "note": "a visually hidden file input: its label shows the focus"
+  },
+  {
+   "rule": "contrast",
+   "list": "broken",
+   "match": "svg-pale",
+   "note": "an SVG icon, the control's only content, read from pixels"
+  }
+ ],
+ "must_not": [
+  {
+   "rule": "focus-invisible",
+   "match": "bar-ok",
+   "note": "focus shows on a fixed bar"
+  },
+  {
+   "rule": "focus-invisible",
+   "match": "autofocus-ok",
+   "note": "focused on load, ring visible"
+  },
+  {
+   "rule": "button-shape",
+   "what_has": "20px",
+   "note": "M3's medium FAB corner"
+  },
+  {
+   "rule": "spacing-off-grid",
+   "what_has": "26px",
+   "note": "M3's medium FAB padding"
+  },
+  {
+   "rule": "target-m3",
+   "match": "\"A focusable panel",
+   "note": "a focusable panel is not a target (the button inside it is)"
+  },
+  {
+   "rule": "target-wcag",
+   "match": "label.drop"
+  },
+  {
+   "rule": "target-m3",
+   "match": "label.drop"
+  },
+  {
+   "rule": "contrast",
+   "match": "svg-ok",
+   "note": "a dark SVG icon"
+  },
+  {
+   "rule": "contrast",
+   "match": "faded-text",
+   "note": "black on a half-transparent white panel over black is about 5.3:1"
+  },
+  {
+   "rule": "motion-reduce",
+   "match": "hidden-spin",
+   "note": "an animation nobody can see"
+  }
+ ]
+}

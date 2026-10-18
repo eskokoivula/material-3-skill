@@ -1,0 +1,33 @@
+{
+ "fetched": "2026-10-18",
+ "sources": {
+  "flutter": {
+   "repo": "flutter/flutter",
+   "path": "dev/tools/gen_defaults/data",
+   "commit": "182c266961f8a8a0f005b35002a04fdd2ec1d19b",
+   "commit_date": "2024-09-04T00:20:16Z",
+   "files": 62
+  },
+  "compose": {
+   "repo": "androidx/androidx",
+   "path": "compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens",
+   "commit": "160825094a81825468a95b115bfb1b541e549856",
+   "commit_date": "2026-08-05T14:41:17Z",
+   "files": 120
+  },
+  "web": {
+   "repo": "material-components/material-web",
+   "path": "tokens/versions/v0_192",
+   "commit": "60c0cfa58ad135c189cb0fa95c5f2744499f0327",
+   "commit_date": "2025-10-07T14:00:48Z",
+   "files": 92
+  },
+  "web-latest": {
+   "repo": "material-components/material-web",
+   "path": "tokens/versions/latest/sass",
+   "commit": "763a97326fc2d0f425366cc3fa87bd0eccfaabdc",
+   "commit_date": "2026-04-06T22:01:50Z",
+   "files": 15
+  }
+ }
+}

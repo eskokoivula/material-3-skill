@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open dialog</title>
+<!-- Check 4b: with a modal dialog open, the page behind it cannot be used and is not measured; the dialog is.
+     Labels are placeholders. -->
+<style>
+  body { margin: 0; font: 16px/1.5 Georgia, serif; color: #1D1B20; background: #FFFFFF; }
+  main { padding: 16px; }
+  .behind { color: #BDBDBD; }
+  .behind-button { padding: 12px 24px; border: 0; border-radius: 2px; background: #E8DEF8; color: #1D1B20; font: inherit; }
+  dialog { border: 0; border-radius: 28px; padding: 24px; background: #ECE6F0; color: #1D1B20; }
+  dialog::backdrop { background: rgb(0 0 0 / 0.32); }
+  .inside { color: #A0A0A0; }
+  dialog button { min-height: 48px; padding: 0 24px; border: 0; border-radius: 24px; background: #6750A4; color: #FFFFFF; font: inherit; }
+  dialog button:hover { background: #7965AF; }
+  dialog button:focus-visible { outline: 3px solid #625B71; outline-offset: 2px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="behind">Low contrast behind the dialog</p>
+  <button class="behind-button">No hover or focus ring behind the dialog</button>
+</main>
+<dialog id="dialog">
+  <p class="inside">Low contrast inside the dialog</p>
+  <button>Close</button>
+</dialog>
+<script>document.getElementById('dialog').showModal();</script>
+</body>
+</html>

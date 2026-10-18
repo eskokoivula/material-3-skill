@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planted faults</title>
+<!-- A test page for the audit (check 4). Every element with data-fault carries one planted fault; expected.json
+     says which rule must find it and in which list, and what the audit must not report (elements marked data-ok).
+     Labels are placeholders. -->
+<style>
+  body { margin: 0; padding-top: 64px; font: 16px/1.5 Georgia, serif; color: #1D1B20; background: #FFFFFF; }
+  main { padding: 16px; display: grid; gap: 16px; }
+  .bar { position: fixed; top: 0; left: 0; right: 0; height: 56px; display: flex; gap: 8px; align-items: center; padding: 0 16px; background: #F3EDF7; }
+  .bar a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 12px; border-radius: 24px; color: #1D1B20; }
+  .bar a:hover { background: #E8DEF8; }
+  .bar a:focus-visible { outline: 3px solid #625B71; outline-offset: 2px; }
+  .bar-nofocus { min-height: 48px; padding: 0 16px; border: 0; border-radius: 24px; background: #6750A4; color: #FFFFFF; font: inherit; }
+  .bar-nofocus:hover { background: #7965AF; }
+  .bar-nofocus:focus { outline: none; }
+  .low { color: #9E9E9E; }
+  .small { width: 32px; height: 32px; border: 0; border-radius: 16px; background: #E8DEF8; color: #1D1B20; }
+  .tiny { display: inline-block; width: 16px; height: 16px; background: #6750A4; }
+  .nofocus { padding: 12px 24px; border: 0; border-radius: 20px; background: #6750A4; color: #FFFFFF; font: inherit; }
+  .nofocus:focus, .nofocus:focus-visible { outline: none; }
+  .cards { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cards div { width: 40px; height: 40px; background: #E6E0E9; }
+  .sizes span { display: block; }
+  @media (min-width: 840px) { .wide-only { font-size: 26px; } }
+  .wide { width: 500px; height: 24px; background: #F3EDF7; }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(40px); } }
+  .moving { width: 24px; height: 24px; background: #7D5260; animation: slide 2s linear infinite alternate; }
+  .square { padding: 12px 24px; border: 0; border-radius: 2px; background: #6750A4; color: #FFFFFF; font: inherit; }
+  .square:hover, .square:focus-visible { background: #7965AF; outline: 3px solid #625B71; outline-offset: 2px; }
+  .nohover { padding: 12px 24px; border: 0; border-radius: 20px; background: #E8DEF8; color: #1D1B20; font: inherit; }
+  .nohover:focus-visible { outline: 3px solid #625B71; outline-offset: 2px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner { display: inline-block; width: 12px; height: 12px; margin-left: 8px; border: 2px solid #1D1B20; border-right-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .offgrid { padding: 18px; background: #F7F2FA; }
+  .ok { min-height: 48px; padding: 0 24px; border: 0; border-radius: 24px; background: #E8DEF8; color: #1D1B20; font: inherit; }
+  .ok:hover { background: #D8CDEB; }
+  .ok:focus-visible { outline: 3px solid #625B71; outline-offset: 2px; }
+  .fab-m { height: 80px; padding: 0 26px; border: 0; border-radius: 20px; background: #E8DEF8; color: #1D1B20; font: inherit; }
+  .fab-m:hover { background: #D8CDEB; }
+  .fab-m:focus-visible { outline: 3px solid #625B71; outline-offset: 2px; }
+  .panel { padding: 16px; background: #F7F2FA; }
+  .panel:focus { outline: none; }
+  .layered { position: relative; padding: 16px; }
+  .layered-bg { position: absolute; inset: 0; border-radius: 12px; background: #1D1B20; pointer-events: none; }
+  .layered-text { position: relative; margin: 0; color: #5A5A5A; }
+  .hero { position: relative; height: 120px; overflow: hidden; }
+  .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .over-video { position: relative; margin: 0; padding: 16px; color: #FFFFFF; }
+  .drop { display: block; padding: 24px; border: 2px dashed #79747E; border-radius: 12px; text-align: center; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .iconbtn { width: 48px; height: 48px; padding: 12px; border: 0; border-radius: 24px; background: #FFFFFF; }
+  .iconbtn:hover { background: #F3EDF7; }
+  .iconbtn:focus-visible { outline: 3px solid #625B71; outline-offset: 2px; }
+  .dark-zone { padding: 16px; background: #000000; }
+  .faded-panel { padding: 8px; background: #FFFFFF; opacity: 0.5; }
+  .faded-text { margin: 0; color: #000000; }
+  .hidden-spin { width: 24px; height: 24px; background: #7D5260; visibility: hidden; animation: spin 1s linear infinite; }
+  .spacer { height: 1200px; }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="bar-ok" href="#top" data-ok="focus shows on a fixed bar">Home</a>
+  <button class="bar-nofocus" data-fault="focus-invisible">No focus ring on a fixed bar</button>
+</header>
+<main>
+  <p class="low" data-fault="contrast">Low contrast body text</p>
+  <button class="small" data-fault="target-m3" aria-label="Small">+</button>
+  <p><a class="tiny" href="#a" data-fault="target-wcag" aria-label="Tiny link"></a><a class="tiny" href="#b" aria-label="Second tiny link" style="margin-left:4px"></a></p>
+  <button class="nofocus" data-fault="focus-invisible">No focus ring</button>
+  <button class="ok autofocus-ok" autofocus data-ok="focused on load, ring visible">Focused on load</button>
+  <div class="cards" data-fault="radius-scale-inconsistent">
+    <div style="border-radius:3px"></div><div style="border-radius:5px"></div><div style="border-radius:7px"></div>
+    <div style="border-radius:9px"></div><div style="border-radius:11px"></div><div style="border-radius:13px"></div>
+    <div style="border-radius:15px"></div>
+  </div>
+  <div class="sizes" data-fault="type-scale-inconsistent">
+    <span style="font-size:10px">Size 10</span><span style="font-size:13px">Size 13</span><span style="font-size:15px">Size 15</span>
+    <span style="font-size:17px">Size 17</span><span style="font-size:19px">Size 19</span><span style="font-size:21px">Size 21</span>
+    <span style="font-size:23px">Size 23</span><span style="font-size:25px">Size 25</span><span style="font-size:27px">Size 27</span>
+    <span style="font-size:29px">Size 29</span><span style="font-size:31px">Size 31</span><span style="font-size:33px">Size 33</span>
+  </div>
+  <p class="wide-only" data-fault="type-off-scale">Off the scale only on wide windows</p>
+  <div class="wide" data-fault="sideways-scroll"></div>
+  <div class="moving" data-fault="motion-reduce"></div>
+  <button class="square" data-fault="button-shape">Square corners</button>
+  <button class="nohover" data-fault="hover-missing">No hover</button>
+  <button class="nohover spin-host" data-fault="hover-missing">Loading<span class="spinner"></span></button>
+  <div class="offgrid" data-fault="spacing-off-grid">Padding off the grid</div>
+  <button class="fab-m" data-ok="M3's medium FAB: 20 px corners, 26 px padding">Medium FAB</button>
+  <div role="tablist"><button class="ok" role="tab" aria-selected="true">Tab</button></div>
+  <div class="panel" role="tabpanel" tabindex="0" data-fault="focus-invisible">
+    <p>A focusable panel without a focus ring</p>
+    <button class="small in-panel" data-fault="target-m3" aria-label="Small in a panel">+</button>
+  </div>
+  <div class="layered" data-fault="contrast">
+    <div class="layered-bg"></div>
+    <p class="layered-text">Text on a layer that ignores the pointer</p>
+  </div>
+  <div class="hero">
+    <video class="bg" src="loop.webm" autoplay muted loop playsinline data-fault="video-no-pause"></video>
+    <p class="over-video" data-fault="contrast">Text over a looping video, dark then light</p>
+  </div>
+  <label class="drop" data-fault="focus-invisible">Drop a file here <input type="file" class="sr-only"></label>
+  <p><button class="iconbtn svg-pale" aria-label="Pale icon" data-fault="contrast"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#E0E0E0" d="M4 4h16v16H4z"/></svg></button>
+     <button class="iconbtn svg-ok" aria-label="Clear icon" data-ok="dark icon, 3:1 or more"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#1D1B20" d="M4 4h16v16H4z"/></svg></button>
+     <button hidden>Pause</button></p>
+  <div class="dark-zone"><div class="faded-panel"><p class="faded-text" data-ok="about 5.3:1 once the panel's opacity is drawn">Text in a half-transparent panel</p></div></div>
+  <div class="hidden-spin" data-ok="hidden: its movement is not seen"></div>
+  <div class="spacer"></div>
+</main>
+</body>
+</html>

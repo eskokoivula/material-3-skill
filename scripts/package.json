@@ -1,0 +1,10 @@
+{
+  "name": "material-3-skill-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Engines for the material-3 skill: Google's color library and the axe-core accessibility engine.",
+  "dependencies": {
+    "@material/material-color-utilities": "0.4.0",
+    "axe-core": "4.14.0"
+  }
+}
