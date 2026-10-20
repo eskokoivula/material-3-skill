@@ -7,6 +7,7 @@ Installed by a link: `~/.claude/skills/material-3` points to this folder (see RE
 
 - All checks: `python3 tests/run_all.py` (from this folder).
 - Node dependencies: `npm --prefix scripts ci` (the color library and axe-core, pinned in `scripts/package-lock.json`).
+- README example: `python3 examples/before-after/build.py` remakes `docs/images/` and prints the audit counts.
 
 ## Rules
 
@@ -14,5 +15,5 @@ Installed by a link: `~/.claude/skills/material-3` points to this folder (see RE
 - Reference files are written in our own words from the official pages; every file names its sources and the date.
 - When M3 changes, refresh `references/sources.md` first (`tools/fetch_page.py`), then the files that cite it.
 - Site visits are headless (Playwright with real Chrome).
-- Test fixtures are invented (`tests/fixtures/sample-app/`, `tests/fixtures/audit/`): never copy a real project's code,
-  brand or screenshots into this repository.
+- Test fixtures and examples are invented (`tests/fixtures/sample-app/`, `tests/fixtures/audit/`, `examples/`): never
+  copy a real project's code, brand or screenshots into this repository.

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Billo invoices (before)</title>
+<!-- The "before" screen of the README example: an invented invoice app, styled the way many apps are built by hand.
+     It looks finished, but it carries faults that are common in real apps: light gray text, white text on the
+     brand teal, small icon buttons, no focus ring, no hover on the rows, and the phone layout stretched onto a
+     desktop. The brand (Billo, #14B8A6, Inter) and every name, number and label are invented sample data. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/lucide-static@0.454.0/font/lucide.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: Inter, system-ui, sans-serif; color: #111827; background: #FFFFFF; -webkit-font-smoothing: antialiased; }
+  button, a { font: inherit; color: inherit; }
+  button:focus, a:focus { outline: none; }
+
+  .page { max-width: 640px; margin: 0 auto; padding: 18px 18px 150px; }
+  header { display: flex; align-items: center; gap: 10px; }
+  h1 { flex: 1; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  .icon-btn { width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 8px; background: none; color: #9CA3AF; font-size: 18px; cursor: pointer; }
+  .sample { margin: 4px 0 0; color: #6B7280; font-size: 12px; font-weight: 500; }
+  .avatar { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: #CCFBF1; color: #14B8A6; font-size: 12px; font-weight: 600; }
+
+  .summary { margin-top: 15px; padding: 18px; border-radius: 16px; background: #14B8A6; color: #FFFFFF; }
+  .summary small { display: block; font-size: 13px; opacity: 0.85; }
+  .summary strong { display: block; margin: 2px 0; font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+
+  .pills { display: flex; gap: 6px; margin-top: 18px; }
+  .pill { height: 30px; padding: 0 14px; border: 0; border-radius: 999px; background: #F3F4F6; color: #6B7280; font-size: 13px; font-weight: 500; cursor: pointer; }
+  .pill.active { background: #14B8A6; color: #FFFFFF; }
+
+  .label { margin: 22px 0 6px; color: #9CA3AF; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 13px 10px; border-radius: 10px; text-decoration: none; }
+  .row + .row { border-top: 1px solid #F3F4F6; }
+  .row .who { flex: 1; min-width: 0; }
+  .row .name { display: block; font-size: 15px; font-weight: 600; }
+  .row .meta { display: block; margin-top: 2px; color: #9CA3AF; font-size: 13px; }
+  .row .sum { text-align: right; font-size: 15px; font-weight: 600; }
+  .badge { display: inline-block; margin-top: 4px; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge.overdue { background: #FEF2F2; color: #EF4444; }
+  .badge.unpaid { background: #FFFBEB; color: #F59E0B; }
+  .badge.paid { background: #ECFDF5; color: #10B981; }
+  .badge.draft { background: #F3F4F6; color: #9CA3AF; }
+
+  .new { position: fixed; left: 50%; bottom: 72px; width: min(604px, calc(100% - 36px)); transform: translateX(-50%); height: 48px; border: 0; border-radius: 12px; background: #14B8A6; color: #FFFFFF; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .tabs { position: fixed; inset: auto 0 0; height: 56px; display: flex; border-top: 1px solid #F3F4F6; background: #FFFFFF; }
+  .tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #9CA3AF; font-size: 10px; text-decoration: none; }
+  .tab i { font-size: 20px; }
+  .tab.active { color: #14B8A6; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Invoices</h1>
+    <button class="icon-btn" aria-label="Search"><i class="icon-search" aria-hidden="true"></i></button>
+    <button class="icon-btn" aria-label="Notifications"><i class="icon-bell" aria-hidden="true"></i></button>
+    <span class="avatar" aria-hidden="true">AL</span>
+  </header>
+  <p class="sample">Sample data</p>
+
+  <section class="summary" aria-label="Outstanding">
+    <small>Outstanding</small>
+    <strong>€4,280.00</strong>
+    <small>3 unpaid · 1 overdue</small>
+  </section>
+
+  <div class="pills" role="group" aria-label="Filter">
+    <button class="pill active" aria-pressed="true">All</button>
+    <button class="pill" aria-pressed="false">Unpaid</button>
+    <button class="pill" aria-pressed="false">Paid</button>
+    <button class="pill" aria-pressed="false">Draft</button>
+  </div>
+
+  <p class="label">Recent</p>
+  <a class="row" href="#inv-1042"><span class="who"><span class="name">Kettle &amp; Pine</span><span class="meta">INV-1042 · Due 14 Oct</span></span><span class="sum">€1,250.00<br><span class="badge overdue">Overdue</span></span></a>
+  <a class="row" href="#inv-1043"><span class="who"><span class="name">Lumen Café</span><span class="meta">INV-1043 · Due 28 Oct</span></span><span class="sum">€860.00<br><span class="badge unpaid">Unpaid</span></span></a>
+  <a class="row" href="#inv-1044"><span class="who"><span class="name">Arkki Studio</span><span class="meta">INV-1044 · Due 2 Nov</span></span><span class="sum">€2,170.00<br><span class="badge unpaid">Unpaid</span></span></a>
+  <a class="row" href="#inv-1045"><span class="who"><span class="name">Vesi Yoga</span><span class="meta">INV-1045 · Not sent</span></span><span class="sum">€320.00<br><span class="badge draft">Draft</span></span></a>
+  <a class="row" href="#inv-1039"><span class="who"><span class="name">Harbor Books</span><span class="meta">INV-1039 · Paid 9 Oct</span></span><span class="sum">€540.00<br><span class="badge paid">Paid</span></span></a>
+  <a class="row" href="#inv-1038"><span class="who"><span class="name">Otso Bikes</span><span class="meta">INV-1038 · Paid 2 Oct</span></span><span class="sum">€1,480.00<br><span class="badge paid">Paid</span></span></a>
+</div>
+
+<button class="new"><i class="icon-plus" aria-hidden="true"></i> New invoice</button>
+<nav class="tabs" aria-label="Main">
+  <a class="tab active" href="#invoices" aria-current="page"><i class="icon-file-text" aria-hidden="true"></i>Invoices</a>
+  <a class="tab" href="#clients"><i class="icon-users" aria-hidden="true"></i>Clients</a>
+  <a class="tab" href="#reports"><i class="icon-chart-column" aria-hidden="true"></i>Reports</a>
+  <a class="tab" href="#settings"><i class="icon-settings" aria-hidden="true"></i>Settings</a>
+</nav>
+</body>
+</html>

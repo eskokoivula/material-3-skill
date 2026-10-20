@@ -1,0 +1,7 @@
+{
+  "name": "Billo, an invented brand",
+  "source": "#14B8A6",
+  "variant": "fidelity",
+  "locked": { "light": { "primaryContainer": "#14B8A6" } },
+  "type": { "brand": "Inter", "plain": "Inter", "variable": true }
+}

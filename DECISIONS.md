@@ -12,3 +12,7 @@ One line per decision, newest last.
   passing it silently.
 - 2026-10-18 · Values Google's own components use never count as "Differs from M3".
 - 2026-10-18 · Test fixtures are invented (a sample app and brand, a page of planted faults); no real project ships here.
+- 2026-10-20 · The README is in ASD-STE100 Simplified Technical English, pragmatic mode: short sentences, domain words
+  stay.
+- 2026-10-20 · The README example is an invented screen that the skill audits and designs again. A pair made with and
+  without the skill showed little visible difference, because the base model already knows much of M3.

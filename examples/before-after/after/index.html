@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Billo invoices (after)</title>
+<!-- The "after" screen of the README example: before.html redesigned by the skill. Same brand (#14B8A6 kept exact
+     as primaryContainer, Inter) and the same invoices; M3 roles, type scale, components and layout by window size.
+     Built with scripts/prototype.mjs from ../brand.json. Every name, number and label is invented sample data. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="m3.css">
+<link rel="stylesheet" href="prototype.css">
+<style>
+  .stack { display: grid; gap: 16px; padding-block: 8px 104px; }
+  .fab-slot { position: sticky; bottom: 16px; display: flex; justify-content: flex-end; padding: 0 16px; pointer-events: none; }
+  .fab-slot > * { pointer-events: auto; }
+  .sample { margin: 0; }
+  .summary { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+  .summary p { margin: 0; }
+  .md-list { margin: 0; padding: 0; list-style: none; }
+  .trail { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .status { display: inline-flex; align-items: center; gap: 4px; margin: 0; color: var(--md-sys-color-on-surface-variant); }
+  .status .material-symbols-outlined { font-size: 16px; }
+  .status--overdue { color: var(--md-sys-color-error); }
+  /* The selected row shows only next to its detail pane (list-detail, from 840 px); on a phone a tap opens the invoice. */
+  @container md-window (min-width: 840px) {
+    .md-list-item[aria-current='true'] { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); border-radius: var(--md-sys-shape-corner-large); }
+    .md-list-item[aria-current='true'] :is(.md-list-item__supporting, .status) { color: var(--md-sys-color-on-secondary-container); }
+    .list-col { position: sticky; top: 72px; }
+  }
+  .pane { padding: 24px; border-radius: var(--md-sys-shape-corner-large); background: var(--md-sys-color-surface-container-low); display: grid; gap: 16px; align-content: start; }
+  .detail p { margin: 0; }
+  .lines { margin: 0; padding: 0; list-style: none; }
+  .lines li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--md-sys-color-outline-variant); }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="proto-stage" data-frame="phone">
+  <div class="proto-device">
+    <div id="app" class="md-window md-surface">
+      <nav class="md-nav-rail md-from-medium" aria-label="Main">
+        <button class="md-fab md-nav-rail__fab" aria-label="New invoice"><span class="material-symbols-outlined" aria-hidden="true">add</span></button>
+        <a class="md-nav-rail__item" href="#invoices" data-nav="invoices" data-transition="top-level"><span class="md-nav-rail__indicator"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span></span>Invoices</a>
+        <a class="md-nav-rail__item" href="#clients" data-nav="clients" data-transition="top-level"><span class="md-nav-rail__indicator"><span class="material-symbols-outlined" aria-hidden="true">group</span></span>Clients</a>
+        <a class="md-nav-rail__item" href="#reports" data-nav="reports" data-transition="top-level"><span class="md-nav-rail__indicator"><span class="material-symbols-outlined" aria-hidden="true">bar_chart</span></span>Reports</a>
+        <a class="md-nav-rail__item" href="#settings" data-nav="settings" data-transition="top-level"><span class="md-nav-rail__indicator"><span class="material-symbols-outlined" aria-hidden="true">settings</span></span>Settings</a>
+      </nav>
+
+      <div class="proto-main">
+        <div class="screens">
+
+          <section class="screen" data-screen="invoices" data-title="Invoices" data-section="invoices" aria-label="Invoices">
+            <header class="md-top-app-bar">
+              <h1 class="md-top-app-bar__title">Invoices</h1>
+              <button class="md-icon-button" aria-label="Search"><span class="material-symbols-outlined" aria-hidden="true">search</span></button>
+              <button class="md-icon-button" aria-label="Notifications"><span class="material-symbols-outlined" aria-hidden="true">notifications</span></button>
+              <button class="md-icon-button" aria-label="AL, account"><span class="md-avatar" aria-hidden="true" style="width:32px;height:32px">AL</span></button>
+            </header>
+            <div class="md-margin stack">
+              <div class="md-list-detail">
+                <div class="list-col stack" style="padding:0">
+                  <p class="sample md-label-medium md-on-surface-variant">Sample data</p>
+                  <div class="md-card summary">
+                    <p class="md-label-large">Outstanding</p>
+                    <p class="md-display-small md-emphasized">€4,280.00</p>
+                    <p class="md-body-medium">3 unpaid · 1 overdue</p>
+                  </div>
+                  <div class="md-chip-set" role="group" aria-label="Filter">
+                    <button class="md-chip" aria-pressed="true" data-filter="all"><span class="material-symbols-outlined" aria-hidden="true">check</span>All</button>
+                    <button class="md-chip" aria-pressed="false" data-filter="unpaid">Unpaid</button>
+                    <button class="md-chip" aria-pressed="false" data-filter="paid">Paid</button>
+                    <button class="md-chip" aria-pressed="false" data-filter="draft">Draft</button>
+                  </div>
+                  <h2 class="md-title-small md-on-surface-variant" style="margin:8px 0 0">Recent</h2>
+                  <ul class="md-list invoice-list" aria-label="Recent invoices">
+                    <li><a class="md-list-item md-list-item--two-line md-list-item--link" href="#invoice" data-transition="forward" data-invoice="1042"><span class="md-avatar" aria-hidden="true">K</span><span class="md-list-item__text"><span class="md-list-item__headline">Kettle &amp; Pine</span><span class="md-list-item__supporting">INV-1042 · Due 14 Oct</span></span><span class="trail"><span class="md-body-large">€1,250.00</span><span class="status status--overdue md-label-medium"><span class="material-symbols-outlined" aria-hidden="true">error</span>Overdue</span></span></a></li>
+                    <li><a class="md-list-item md-list-item--two-line md-list-item--link" href="#invoice" data-transition="forward" data-invoice="1043"><span class="md-avatar" aria-hidden="true">L</span><span class="md-list-item__text"><span class="md-list-item__headline">Lumen Café</span><span class="md-list-item__supporting">INV-1043 · Due 28 Oct</span></span><span class="trail"><span class="md-body-large">€860.00</span><span class="status md-label-medium">Unpaid</span></span></a></li>
+                    <li><a class="md-list-item md-list-item--two-line md-list-item--link" href="#invoice" data-transition="forward" data-invoice="1044"><span class="md-avatar" aria-hidden="true">A</span><span class="md-list-item__text"><span class="md-list-item__headline">Arkki Studio</span><span class="md-list-item__supporting">INV-1044 · Due 2 Nov</span></span><span class="trail"><span class="md-body-large">€2,170.00</span><span class="status md-label-medium">Unpaid</span></span></a></li>
+                    <li><a class="md-list-item md-list-item--two-line md-list-item--link" href="#invoice" data-transition="forward" data-invoice="1045"><span class="md-avatar" aria-hidden="true">V</span><span class="md-list-item__text"><span class="md-list-item__headline">Vesi Yoga</span><span class="md-list-item__supporting">INV-1045 · Not sent</span></span><span class="trail"><span class="md-body-large">€320.00</span><span class="status md-label-medium"><span class="material-symbols-outlined" aria-hidden="true">edit_note</span>Draft</span></span></a></li>
+                    <li><a class="md-list-item md-list-item--two-line md-list-item--link" href="#invoice" data-transition="forward" data-invoice="1039"><span class="md-avatar" aria-hidden="true">H</span><span class="md-list-item__text"><span class="md-list-item__headline">Harbor Books</span><span class="md-list-item__supporting">INV-1039 · Paid 9 Oct</span></span><span class="trail"><span class="md-body-large">€540.00</span><span class="status md-label-medium"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Paid</span></span></a></li>
+                    <li><a class="md-list-item md-list-item--two-line md-list-item--link" href="#invoice" data-transition="forward" data-invoice="1038"><span class="md-avatar" aria-hidden="true">O</span><span class="md-list-item__text"><span class="md-list-item__headline">Otso Bikes</span><span class="md-list-item__supporting">INV-1038 · Paid 2 Oct</span></span><span class="trail"><span class="md-body-large">€1,480.00</span><span class="status md-label-medium"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Paid</span></span></a></li>
+                  </ul>
+                </div>
+                <div class="md-from-expanded">
+                  <div class="pane detail" data-detail>
+                    <p class="md-label-large md-on-surface-variant" data-field="label"></p>
+                    <p class="md-display-medium md-emphasized" data-field="amount"></p>
+                    <p class="status md-title-small" data-field="status"></p>
+                    <ul class="lines md-body-large" data-field="lines"></ul>
+                    <div class="actions" data-field="actions"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fab-slot md-only-compact">
+              <button class="md-fab md-fab--extended"><span class="material-symbols-outlined" aria-hidden="true">add</span>New invoice</button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="invoice" data-title="Invoice" data-section="invoices" aria-label="Invoice" hidden>
+            <header class="md-top-app-bar">
+              <button class="md-icon-button" data-go="invoices" data-transition="backward" aria-label="Back"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
+              <h1 class="md-top-app-bar__title" data-field="number"></h1>
+              <button class="md-icon-button" aria-label="More actions"><span class="material-symbols-outlined" aria-hidden="true">more_vert</span></button>
+            </header>
+            <div class="md-margin stack detail" data-detail>
+              <p class="sample md-label-medium md-on-surface-variant">Sample data</p>
+              <p class="md-label-large md-on-surface-variant" data-field="label"></p>
+              <p class="md-display-small md-emphasized" data-field="amount"></p>
+              <p class="status md-title-small" data-field="status"></p>
+              <ul class="lines md-body-large" data-field="lines"></ul>
+              <div class="actions" data-field="actions"></div>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="clients" data-title="Clients" data-section="clients" aria-label="Clients" hidden>
+            <header class="md-top-app-bar"><h1 class="md-top-app-bar__title">Clients</h1></header>
+            <div class="md-margin stack"><p class="md-body-large md-on-surface-variant" style="margin:0">This example designs only the Invoices screen.</p></div>
+          </section>
+          <section class="screen" data-screen="reports" data-title="Reports" data-section="reports" aria-label="Reports" hidden>
+            <header class="md-top-app-bar"><h1 class="md-top-app-bar__title">Reports</h1></header>
+            <div class="md-margin stack"><p class="md-body-large md-on-surface-variant" style="margin:0">This example designs only the Invoices screen.</p></div>
+          </section>
+          <section class="screen" data-screen="settings" data-title="Settings" data-section="settings" aria-label="Settings" hidden>
+            <header class="md-top-app-bar"><h1 class="md-top-app-bar__title">Settings</h1></header>
+            <div class="md-margin stack"><p class="md-body-large md-on-surface-variant" style="margin:0">This example designs only the Invoices screen.</p></div>
+          </section>
+        </div>
+
+        <nav class="md-nav-bar md-only-compact" aria-label="Main">
+          <a class="md-nav-bar__item" href="#invoices" data-nav="invoices" data-transition="top-level"><span class="md-nav-bar__indicator"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span></span>Invoices</a>
+          <a class="md-nav-bar__item" href="#clients" data-nav="clients" data-transition="top-level"><span class="md-nav-bar__indicator"><span class="material-symbols-outlined" aria-hidden="true">group</span></span>Clients</a>
+          <a class="md-nav-bar__item" href="#reports" data-nav="reports" data-transition="top-level"><span class="md-nav-bar__indicator"><span class="material-symbols-outlined" aria-hidden="true">bar_chart</span></span>Reports</a>
+          <a class="md-nav-bar__item" href="#settings" data-nav="settings" data-transition="top-level"><span class="md-nav-bar__indicator"><span class="material-symbols-outlined" aria-hidden="true">settings</span></span>Settings</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="proto-bar" role="toolbar" aria-label="Prototype controls" data-audit-ignore>
+  <label>Frame <select name="frame"><option value="phone">Phone</option><option value="tablet">Tablet</option><option value="desktop">Desktop</option><option value="full">Full</option></select></label>
+  <label>Theme <select name="theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+  <label>Motion <select name="motion"><option value="normal">Normal</option><option value="reduced">Reduced</option></select></label>
+  <label>Screen <select name="screen"></select></label>
+</div>
+<script src="prototype.js"></script>
+<script>
+  // The open invoice: a row fills the detail pane (from 840 px, list-detail) and the phone's invoice screen.
+  const invoices = {
+    1042: { client: 'Kettle & Pine', amount: '€1,250.00', status: 'overdue', note: 'Overdue since 14 Oct', lines: [['Brand workshop, 1 day', '€900.00'], ['Travel', '€350.00']] },
+    1043: { client: 'Lumen Café', amount: '€860.00', status: 'unpaid', note: 'Due 28 Oct', lines: [['Menu design', '€860.00']] },
+    1044: { client: 'Arkki Studio', amount: '€2,170.00', status: 'unpaid', note: 'Due 2 Nov', lines: [['Website, phase 1', '€1,800.00'], ['Photography', '€370.00']] },
+    1045: { client: 'Vesi Yoga', amount: '€320.00', status: 'draft', note: 'Draft, not sent', lines: [['Class schedule poster', '€320.00']] },
+    1039: { client: 'Harbor Books', amount: '€540.00', status: 'paid', note: 'Paid 9 Oct', lines: [['Book cover', '€540.00']] },
+    1038: { client: 'Otso Bikes', amount: '€1,480.00', status: 'paid', note: 'Paid 2 Oct', lines: [['Product photos, 2 days', '€1,480.00']] },
+  };
+  const icons = { overdue: 'error', unpaid: 'schedule', draft: 'edit_note', paid: 'check_circle' };
+  // One filled button at most per view (M3 emphasis); a paid invoice has no main action left.
+  const actions = { overdue: ['Send reminder', 'Mark as paid'], unpaid: ['Send reminder', 'Mark as paid'], draft: ['Send invoice', 'Edit'], paid: [null, 'Download PDF'] };
+
+  function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+
+  function render(id) {
+    const inv = invoices[id];
+    for (const row of document.querySelectorAll('[data-invoice]')) {
+      if (row.dataset.invoice === id) row.setAttribute('aria-current', 'true'); else row.removeAttribute('aria-current');
+    }
+    document.querySelector('[data-screen=invoice] [data-field=number]').textContent = `INV-${id}`;
+    for (const box of document.querySelectorAll('[data-detail]')) {
+      box.querySelector('[data-field=label]').textContent = `Invoice INV-${id} · ${inv.client}`;
+      box.querySelector('[data-field=amount]').textContent = inv.amount;
+      const status = box.querySelector('[data-field=status]');
+      status.classList.toggle('status--overdue', inv.status === 'overdue');
+      status.replaceChildren(el('span', 'material-symbols-outlined', icons[inv.status]), inv.note);
+      status.firstChild.setAttribute('aria-hidden', 'true');
+      box.querySelector('[data-field=lines]').replaceChildren(...inv.lines.map(([what, sum]) => {
+        const li = el('li'); li.append(el('span', '', what), el('span', '', sum)); return li;
+      }));
+      const [main, other] = actions[inv.status];
+      const buttons = [];
+      if (main) buttons.push(el('button', 'md-button md-button--filled', main));
+      buttons.push(el('button', 'md-button md-button--outlined', other));
+      box.querySelector('[data-field=actions]').replaceChildren(...buttons);
+    }
+  }
+
+  document.querySelector('.invoice-list').addEventListener('click', (ev) => {
+    const row = ev.target.closest('[data-invoice]');
+    if (!row) return;
+    render(row.dataset.invoice);
+    // Next to the pane the row only selects; the router moves to the invoice screen on compact and medium widths.
+    if (document.getElementById('app').clientWidth >= 840) { ev.preventDefault(); ev.stopPropagation(); }
+  });
+  render('1042');
+
+  // Filter chips: one selected at a time, with the check icon M3 gives a selected filter chip. Unpaid includes overdue.
+  const matches = { all: () => true, unpaid: (s) => s === 'unpaid' || s === 'overdue', paid: (s) => s === 'paid', draft: (s) => s === 'draft' };
+  const chips = document.querySelector('[aria-label=Filter]');
+  chips.addEventListener('click', (ev) => {
+    const chip = ev.target.closest('.md-chip');
+    if (!chip) return;
+    const check = chips.querySelector('.material-symbols-outlined');
+    for (const c of chips.querySelectorAll('.md-chip')) c.setAttribute('aria-pressed', String(c === chip));
+    chip.prepend(check);
+    const keep = matches[chip.dataset.filter];
+    for (const row of document.querySelectorAll('[data-invoice]')) row.parentElement.hidden = !keep(invoices[row.dataset.invoice].status);
+  });
+</script>
+</body>
+</html>

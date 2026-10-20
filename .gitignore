@@ -2,3 +2,6 @@ node_modules
 tests/out/
 __pycache__/
 .DS_Store
+examples/before-after/out/
+examples/before-after/after/*
+!examples/before-after/after/index.html
